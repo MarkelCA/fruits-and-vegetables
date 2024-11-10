@@ -5,9 +5,6 @@ App\Product\Domain\Product:
         IDX_D34A04ADC54C8C93:
             columns:
                 - type_id
-        IDX_D34A04ADF8BD700D:
-            columns:
-                - unit_id
     id:
         id:
             type: integer
@@ -38,16 +35,6 @@ App\Product\Domain\Product:
             inversedBy: null
             joinColumns:
                 type_id:
-                    referencedColumnName: id
-            orphanRemoval: false
-        unit:
-            targetEntity: Unit
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                unit_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

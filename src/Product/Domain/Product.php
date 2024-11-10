@@ -11,18 +11,43 @@ class Product implements JsonSerializable
 	private string $name;
 	private int $quantity;
 	private ProductType $type;
-	private Unit $unit;
 
 	public function __construct(int $id, string $name, int $quantity, string $unit, string $type)
 	{
 		$this->validateScalars(id: $id, name: $name, quantity: $quantity);
-		['type' => $typeEnum, 'unit' => $unitEnum] = $this->transformEnums($unit, $type);
+		$typeEntity = $this->transformType($type);
+		$quantity = $this->transformQuantity($unit, $quantity);
 
 		$this->id = $id;
 		$this->name = $name;
 		$this->quantity = $quantity;
-		$this->type = $typeEnum;
-		$this->unit = $unitEnum;
+		$this->type = $typeEntity;
+	}
+	public function transformQuantity(string $unit, int $quantity): int
+	{
+		$unitEnum = match ($unit) {
+			'g' => UnitEnum::GRAM,
+			'kg' => UnitEnum::KILOGRAM,
+			default => throw new InvalidArgumentException("Invalid unit: " . $unit),
+		};
+
+		$unitEquivalence = match ($unitEnum) {
+			UnitEnum::GRAM => 1,
+			UnitEnum::KILOGRAM => 1000,
+		};
+
+		return $quantity * $unitEquivalence;
+	}
+
+	public function transformType(string $type): ProductType
+	{
+		$typeEnum = match ($type) {
+			'fruit' => ProductTypeEnum::FRUIT,
+			'vegetable' => ProductTypeEnum::VEGETABLE,
+			default => throw new InvalidArgumentException("Invalid type: " . $type),
+		};
+
+		return new ProductType($typeEnum->value);
 	}
 
 	public function validateScalars(int|null $id, string $name, int $quantity): void
