@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Shared\Ports\Api\V1\Product;
+namespace App\Product\Ports\Api\V1\Product;
 
 use App\Product\Application\UseCase\SaveProductUseCase;
 use App\Product\Domain\Product;

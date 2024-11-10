@@ -1,5 +1,5 @@
-controllers:
-    resource: ../src/Shared/Ports/Api/V1/
+product:
+    resource: ../src/Product/Ports/Api/V1/
     prefix: v1/products
     type: annotation
 

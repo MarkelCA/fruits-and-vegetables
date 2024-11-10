@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Shared\Ports\Cli;
+namespace App\Product\Ports\Cli;
 
 use App\Product\Application\UseCase\SaveProductUseCase;
 use App\Product\Domain\FruitsCollection;
-use App\Product\Domain\ProductCollection;
-use App\Product\Domain\ProductTypeEnum;
 use App\Product\Domain\VegetablesCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -14,7 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-// the name of the command is what users type after "php bin/console"
 #[AsCommand(name: 'products:save')]
 class SaveProductsCommand extends Command
 {
