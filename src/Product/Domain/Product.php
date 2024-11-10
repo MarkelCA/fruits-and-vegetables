@@ -7,11 +7,11 @@ use JsonSerializable;
 
 class Product implements JsonSerializable
 {
-	private $id;
-	private $name;
-	private $quantity;
-	private $type;
-	private $unit;
+	private int $id;
+	private string $name;
+	private int $quantity;
+	private ProductType $type;
+	private Unit $unit;
 
 	public function __construct(int $id, string $name, int $quantity, string $unit, string $type)
 	{

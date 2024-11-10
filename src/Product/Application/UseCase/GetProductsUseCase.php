@@ -10,16 +10,12 @@ class GetProductsUseCase
 {
 	public function __construct(private ProductRepository $productRepository) {}
 
-	public function handle()
+	public function handle(SearchCriteria|null $searchCriteria)
 	{
-		$searchCriteria = new SearchCriteria(
-			filters: ['type.name' => 'fruit', 'unit.name' => 'kg'],
-			order: ['id' => Order::Descending],
-			offset: null,
-			limit: null
-		);
+		if ($searchCriteria !== null) {
+			return $this->productRepository->searchByCriteria($searchCriteria)->list();
+		}
 
-
-		return $this->productRepository->searchByCriteria($searchCriteria)->list();
+		return $this->productRepository->searchAll()->list();
 	}
 }
