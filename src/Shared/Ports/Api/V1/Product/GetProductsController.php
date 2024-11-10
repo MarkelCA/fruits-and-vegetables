@@ -22,7 +22,7 @@ class GetProductsController extends AbstractController
 
 		$type = $request->query->get('type');
 		$orderBy = $request->query->get('orderBy') ?? 'id';
-		$orderType = strtoupper($request->query->get('orderType') ?? Order::Ascending->value);
+		$orderType = strtoupper($request->query->get('order') ?? Order::Ascending->value);
 
 		$searchCriteria = new SearchCriteria(
 			filters: !empty($type) ? ['type.name' => $type] : [],

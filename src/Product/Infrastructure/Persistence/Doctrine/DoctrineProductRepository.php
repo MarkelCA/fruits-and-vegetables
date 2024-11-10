@@ -58,7 +58,6 @@ final class DoctrineProductRepository extends ServiceEntityRepository implements
 		$qb = $this->getEntityManager()->createQueryBuilder();
 		$qb->select('p')
 			->from(Product::class, 'p')
-			->join('p.unit', 'unit')
 			->join('p.type', 'type')->addCriteria($doctrineCriteria);
 
 		$result = $qb->getQuery()->getResult();

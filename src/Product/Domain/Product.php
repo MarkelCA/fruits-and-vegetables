@@ -9,6 +9,9 @@ class Product implements JsonSerializable
 {
 	private int $id;
 	private string $name;
+	/**
+	 * Product quantity (in grams)
+	 */
 	private int $quantity;
 	private ProductType $type;
 
@@ -23,30 +26,16 @@ class Product implements JsonSerializable
 		$this->quantity = $quantity;
 		$this->type = $typeEntity;
 	}
+
 	public function transformQuantity(string $unit, int $quantity): int
 	{
-		$unitEnum = match ($unit) {
-			'g' => UnitEnum::GRAM,
-			'kg' => UnitEnum::KILOGRAM,
-			default => throw new InvalidArgumentException("Invalid unit: " . $unit),
-		};
-
-		$unitEquivalence = match ($unitEnum) {
-			UnitEnum::GRAM => 1,
-			UnitEnum::KILOGRAM => 1000,
-		};
-
-		return $quantity * $unitEquivalence;
+		$equivalence = UnitEnum::fromString($unit)->getGramsEquivalence();
+		return $quantity * $equivalence;
 	}
 
 	public function transformType(string $type): ProductType
 	{
-		$typeEnum = match ($type) {
-			'fruit' => ProductTypeEnum::FRUIT,
-			'vegetable' => ProductTypeEnum::VEGETABLE,
-			default => throw new InvalidArgumentException("Invalid type: " . $type),
-		};
-
+		$typeEnum = ProductTypeEnum::fromString($type);
 		return new ProductType($typeEnum->value);
 	}
 
@@ -63,23 +52,6 @@ class Product implements JsonSerializable
 		if ($quantity < 0) {
 			throw new InvalidArgumentException("Invalid quantity: " . $quantity);
 		}
-	}
-
-	public function transformEnums(string $unit, string $type): array
-	{
-		$unitEnum = match ($unit) {
-			'g' => UnitEnum::GRAM,
-			'kg' => UnitEnum::KILOGRAM,
-			default => throw new InvalidArgumentException("Invalid unit: " . $unit),
-		};
-
-		$typeEnum = match ($type) {
-			'fruit' => ProductTypeEnum::FRUIT,
-			'vegetable' => ProductTypeEnum::VEGETABLE,
-			default => throw new InvalidArgumentException("Invalid type: " . $type),
-		};
-
-		return ['type' => new ProductType($typeEnum->value), 'unit' => new Unit($unitEnum->value)];
 	}
 
 	public static function fromArray(array $data): Product
@@ -132,28 +104,12 @@ class Product implements JsonSerializable
 		$this->type = $type;
 	}
 
-	public function getUnit()
-	{
-		return $this->unit;
-	}
-
-	public function getUnitName()
-	{
-		return $this->unit->getName();
-	}
-
-	public function setUnit($unit)
-	{
-		$this->unit = $unit;
-	}
-
 	public function jsonSerialize(): mixed
 	{
 		return [
 			'id' => $this->id,
 			'name' => $this->name,
 			'quantity' => $this->quantity,
-			'unit' => $this->getUnitName(),
 			'type' => $this->getTypeName(),
 		];
 	}

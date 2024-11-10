@@ -4,6 +4,7 @@ namespace App\Shared\Ports\Cli;
 
 use App\Product\Application\UseCase\SaveProductUseCase;
 use App\Product\Domain\ProductCollection;
+use App\Product\Domain\ProductTypeEnum;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -34,15 +35,24 @@ class SaveProductsCommand extends Command
 			$content = file_get_contents($filepath);
 			$products = json_decode($content, true);
 
-			$collection = ProductCollection::fromAssociativeArray($products);
+			$fruits = ProductCollection::fromAssociativeArray($products, ProductTypeEnum::FRUIT);
+			$vegetables = ProductCollection::fromAssociativeArray($products, ProductTypeEnum::VEGETABLE);
 
-			$productsSaved = 0;
-			foreach ($collection->getIterator() as $product) {
+			$fruitsStored = 0;
+			foreach ($fruits->getIterator() as $product) {
 				$this->saveProductUseCase->execute($product);
-				$productsSaved++;
+				$fruitsStored++;
 			}
 
-			echo "Products saved: $productsSaved\n";
+			$vegetablesStored = 0;
+			foreach ($vegetables->getIterator() as $product) {
+				$this->saveProductUseCase->execute($product);
+				$vegetablesStored++;
+			}
+
+			echo "Fruits stored: $fruitsStored\n";
+			echo "Vegetables stored: $vegetablesStored\n";
+
 			return Command::SUCCESS;
 		} catch (Throwable $e) {
 			echo "Error: " . $e->getMessage();
