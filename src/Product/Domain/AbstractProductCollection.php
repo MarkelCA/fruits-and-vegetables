@@ -21,11 +21,13 @@ abstract class AbstractProductCollection
 
 	abstract public function getIterator(): Iterator;
 
-	static public function fromAssociativeArray(array $data, ProductTypeEnum|null $type = null): self
+	abstract static public function getCollectionFilter(): ProductTypeEnum|null;
+
+	static public function fromAssociativeArray(array $data): self
 	{
 		$collection = new static();
 		foreach ($data as $item) {
-			if ($type === null || $item['type'] === $type->value) {
+			if (static::getCollectionFilter() === null || $item['type'] === static::getCollectionFilter()->value) {
 				$collection->add(Product::fromArray($item));
 			}
 		}
@@ -36,7 +38,7 @@ abstract class AbstractProductCollection
 	{
 		$collection = new static();
 		foreach ($data as $item) {
-			if ($type === null || $item->getTypeName() === $type->value) {
+			if ($type === null || $item->getTypeName() === static::getCollectionFilter()->value) {
 				$collection->add($item);
 			}
 		}

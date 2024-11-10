@@ -40,6 +40,11 @@ class ProductCollection extends AbstractProductCollection
 		return $this->items;
 	}
 
+	public static function getCollectionFilter(): ProductTypeEnum|null
+	{
+		return null;
+	}
+
 	/**
 	 * @return Iterator<Product>
 	 */
