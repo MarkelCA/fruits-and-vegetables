@@ -38,13 +38,13 @@ class SaveProductsCommand extends Command
 			$vegetables = VegetablesCollection::fromAssociativeArray($products);
 
 			$fruitsStored = 0;
-			foreach ($fruits->getIterator() as $product) {
+			foreach ($fruits->list() as $product) {
 				$this->saveProductUseCase->execute($product);
 				$fruitsStored++;
 			}
 
 			$vegetablesStored = 0;
-			foreach ($vegetables->getIterator() as $product) {
+			foreach ($vegetables->list() as $product) {
 				$this->saveProductUseCase->execute($product);
 				$vegetablesStored++;
 			}
