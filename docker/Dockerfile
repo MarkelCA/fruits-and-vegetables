@@ -8,4 +8,6 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions zip bcmath @composer; \
     rm /usr/local/bin/install-php-extensions;
 
+RUN docker-php-ext-install pdo pdo_mysql
+
 WORKDIR /app
