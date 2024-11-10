@@ -1,5 +1,6 @@
 controllers:
-    resource: ../src/Shared/Infrastructure/Ports/Api/V1/
+    resource: ../src/Shared/Ports/Api/V1/
+    prefix: v1/products
     type: annotation
 
 kernel:

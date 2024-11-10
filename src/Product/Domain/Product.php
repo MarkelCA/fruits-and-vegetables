@@ -13,33 +13,53 @@ class Product implements JsonSerializable
 	private $type;
 	private $unit;
 
-	public function __construct(int $id, string $name, int $quantity, Unit $unit, ProductType $type)
+	public function __construct(int $id, string $name, int $quantity, string $unit, string $type)
 	{
+		$this->validateScalars(id: $id, name: $name, quantity: $quantity);
+		['type' => $typeEnum, 'unit' => $unitEnum] = $this->transformEnums($unit, $type);
+
 		$this->id = $id;
 		$this->name = $name;
 		$this->quantity = $quantity;
-		$this->unit = $unit;
-		$this->type = $type;
+		$this->type = $typeEnum;
+		$this->unit = $unitEnum;
+	}
+
+	public function validateScalars(int|null $id, string $name, int $quantity): void
+	{
+		if ($id !== null && $id < 0) {
+			throw new InvalidArgumentException("Invalid id: " . $id);
+		}
+
+		if (empty($name)) {
+			throw new InvalidArgumentException("Invalid name: " . $name);
+		}
+
+		if ($quantity < 0) {
+			throw new InvalidArgumentException("Invalid quantity: " . $quantity);
+		}
+	}
+
+	public function transformEnums(string $unit, string $type): array
+	{
+		$unitEnum = match ($unit) {
+			'g' => UnitEnum::GRAM,
+			'kg' => UnitEnum::KILOGRAM,
+			default => throw new InvalidArgumentException("Invalid unit: " . $unit),
+		};
+
+		$typeEnum = match ($type) {
+			'fruit' => ProductTypeEnum::FRUIT,
+			'vegetable' => ProductTypeEnum::VEGETABLE,
+			default => throw new InvalidArgumentException("Invalid type: " . $type),
+		};
+
+		return ['type' => new ProductType($typeEnum->value), 'unit' => new Unit($unitEnum->value)];
 	}
 
 	public static function fromArray(array $data): Product
-	{ {
-			$unit = match ($data['unit']) {
-				'g' => UnitEnum::GRAM,
-				'kg' => UnitEnum::KILOGRAM,
-				default => throw new InvalidArgumentException("Invalid unit: " . $data['unit']),
-			};
-
-			$type = match ($data['type']) {
-				'fruit' => ProductTypeEnum::FRUIT,
-				'vegetable' => ProductTypeEnum::VEGETABLE,
-				default => throw new InvalidArgumentException("Invalid type: " . $data['type']),
-			};
-
-			$productType = new ProductType($type->value);
-			$productUnit = new Unit($unit->value);
-			return new Product($data['id'], $data['name'], $data['quantity'], $productUnit, $productType);
-		}
+	{
+		return new Product(id: $data['id'], name: $data['name'], quantity: $data['quantity'], unit: $data['unit'], type: $data['type']);
 	}
 
 	public function getId()
@@ -77,6 +97,11 @@ class Product implements JsonSerializable
 		return $this->type;
 	}
 
+	public function getTypeName()
+	{
+		return $this->type->getName();
+	}
+
 	public function setType($type)
 	{
 		$this->type = $type;
@@ -85,6 +110,11 @@ class Product implements JsonSerializable
 	public function getUnit()
 	{
 		return $this->unit;
+	}
+
+	public function getUnitName()
+	{
+		return $this->unit->getName();
 	}
 
 	public function setUnit($unit)
@@ -98,8 +128,8 @@ class Product implements JsonSerializable
 			'id' => $this->id,
 			'name' => $this->name,
 			'quantity' => $this->quantity,
-			'unit' => $this->getUnit()->getName(),
-			'type' => $this->getType()->getName(),
+			'unit' => $this->getUnitName(),
+			'type' => $this->getTypeName(),
 		];
 	}
 

@@ -20,11 +20,20 @@ abstract class AbstractProductCollection
 
 	abstract public function getIterator(): Iterator;
 
-	static public function fromArray(array $data): self
+	static public function fromAssociativeArray(array $data): self
 	{
 		$collection = new static();
 		foreach ($data as $item) {
 			$collection->add(Product::fromArray($item));
+		}
+		return $collection;
+	}
+
+	static public function fromProductList(iterable $data): self
+	{
+		$collection = new static();
+		foreach ($data as $item) {
+			$collection->add($item);
 		}
 		return $collection;
 	}

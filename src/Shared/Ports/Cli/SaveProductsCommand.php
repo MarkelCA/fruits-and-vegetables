@@ -1,9 +1,8 @@
 <?php
 
-// src/Command/CreateUserCommand.php
-namespace App\Shared\Infrastructure\Ports\Cli;
+namespace App\Shared\Ports\Cli;
 
-use App\Product\Domain\Product;
+use App\Product\Application\UseCase\SaveProductUseCase;
 use App\Product\Domain\ProductCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,6 +17,11 @@ class SaveProductsCommand extends Command
 {
 	const FILEPATH_ARGUMENT = 'filepath';
 
+	public function __construct(private SaveProductUseCase $saveProductUseCase)
+	{
+		parent::__construct();
+	}
+
 	protected function configure(): void
 	{
 		$this->addArgument(self::FILEPATH_ARGUMENT, InputArgument::REQUIRED, 'File path to the JSON file with the products.');
@@ -30,12 +34,15 @@ class SaveProductsCommand extends Command
 			$content = file_get_contents($filepath);
 			$products = json_decode($content, true);
 
-			$collection = ProductCollection::fromArray($products);
-			foreach ($collection->list() as $product) {
-				echo "Product: " . $product . PHP_EOL;
+			$collection = ProductCollection::fromAssociativeArray($products);
+
+			$productsSaved = 0;
+			foreach ($collection->getIterator() as $product) {
+				$this->saveProductUseCase->execute($product);
+				$productsSaved++;
 			}
 
-
+			echo "Products saved: $productsSaved\n";
 			return Command::SUCCESS;
 		} catch (Throwable $e) {
 			echo "Error: " . $e->getMessage();
