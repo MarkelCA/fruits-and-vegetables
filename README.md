@@ -32,28 +32,24 @@ or
 ## 🐳 Docker image
 Optional. Just here if you want to run it isolated.
 
-### 📥 Pulling image
+### ⌨️ Run development server
 ```bash
-docker pull tturkowski/fruits-and-vegetables
-```
-
-### 🧱 Building image
-```bash
-docker build -t tturkowski/fruits-and-vegetables -f docker/Dockerfile .
-```
-
-### 🏃‍♂️ Running container
-```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables sh 
+docker compose -f docker/compose.yml up
+# Open http://127.0.0.1:8080 in your browser
 ```
 
 ### 🛂 Running tests
 ```bash
-docker run -it -w/app -v$(pwd):/app tturkowski/fruits-and-vegetables bin/phpunit
+docker exec -it fruits-and-vegetables ./bin/phpunit
 ```
 
-### ⌨️ Run development server
+### Creating the database
 ```bash
-docker run -it -w/app -v$(pwd):/app -p8080:8080 tturkowski/fruits-and-vegetables php -S 0.0.0.0:8080 -t /app/public
-# Open http://127.0.0.1:8080 in your browser
+docker exec -it fruits-and-vegetables ./bin/console doctrine:migrations:migrate
 ```
+
+### Inserting products from `request.json`
+```bash
+docker exec -it fruits-and-vegetables ./bin/console product:save ./request.json
+```
+
