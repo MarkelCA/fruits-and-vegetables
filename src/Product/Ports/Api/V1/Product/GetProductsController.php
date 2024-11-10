@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Product\Ports\Api\V1\Product;
+namespace Roadsurfer\Product\Ports\Api\V1\Product;
 
-use App\Product\Application\UseCase\GetProductsUseCase;
-use App\Shared\Domain\SearchCriteria;
+use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
+use Roadsurfer\Shared\Domain\SearchCriteria;
 use Doctrine\Common\Collections\Order;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

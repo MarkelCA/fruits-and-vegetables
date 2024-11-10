@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Product\Ports\Cli;
+namespace Roadsurfer\Product\Ports\Cli;
 
-use App\Product\Application\UseCase\SaveProductUseCase;
-use App\Product\Domain\FruitsCollection;
-use App\Product\Domain\VegetablesCollection;
+use Roadsurfer\Product\Application\UseCase\SaveProductUseCase;
+use Roadsurfer\Product\Domain\FruitsCollection;
+use Roadsurfer\Product\Domain\VegetablesCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

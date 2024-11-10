@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Product\Infrastructure\Persistence\Doctrine;
+namespace Roadsurfer\Product\Infrastructure\Persistence\Doctrine;
 
-use App\Product\Domain\Product;
-use App\Product\Domain\ProductCollection;
-use App\Product\Domain\ProductRepository;
-use App\Shared\Domain\SearchCriteria;
+use Roadsurfer\Product\Domain\Product;
+use Roadsurfer\Product\Domain\ProductCollection;
+use Roadsurfer\Product\Domain\ProductRepository;
+use Roadsurfer\Shared\Domain\SearchCriteria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;

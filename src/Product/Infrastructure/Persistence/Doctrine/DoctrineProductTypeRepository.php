@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Product\Infrastructure\Persistence\Doctrine;
+namespace Roadsurfer\Product\Infrastructure\Persistence\Doctrine;
 
-use App\Product\Domain\ProductType;
-use App\Product\Domain\ProductTypeRepository;
+use Roadsurfer\Product\Domain\ProductType;
+use Roadsurfer\Product\Domain\ProductTypeRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;

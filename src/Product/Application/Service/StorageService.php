@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace Roadsurfer\Service;
 
 class StorageService
 {
@@ -8,8 +8,7 @@ class StorageService
 
     public function __construct(
         string $request
-    )
-    {
+    ) {
         $this->request = $request;
     }
 

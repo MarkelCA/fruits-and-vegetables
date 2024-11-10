@@ -20,7 +20,7 @@ doctrine:
                 type: yml
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Product/Infrastructure/Persistence/Doctrine/Mappings'
-                prefix: 'App\Product\Domain'
+                prefix: 'Roadsurfer\Product\Domain'
                 alias: Product
 
 when@test:

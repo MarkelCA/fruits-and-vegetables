@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Product\Domain;
+namespace Roadsurfer\Product\Domain;
 
 class VegetablesCollection extends ProductCollection
 {

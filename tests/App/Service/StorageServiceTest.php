@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\App\Service;
+namespace Roadsurfer\Tests\App\Service;
 
-use App\Service\StorageService;
+use Roadsurfer\Service\StorageService;
 use PHPUnit\Framework\TestCase;
 
 class StorageServiceTest extends TestCase

@@ -1,4 +1,4 @@
-App\Product\Domain\Product:
+Roadsurfer\Product\Domain\Product:
     type: entity
     table: product
     indexes:

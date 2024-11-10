@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Product\Ports\Api\V1\Product;
+namespace Roadsurfer\Product\Ports\Api\V1\Product;
 
-use App\Product\Application\UseCase\SaveProductUseCase;
-use App\Product\Domain\Product;
+use Roadsurfer\Product\Application\UseCase\SaveProductUseCase;
+use Roadsurfer\Product\Domain\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

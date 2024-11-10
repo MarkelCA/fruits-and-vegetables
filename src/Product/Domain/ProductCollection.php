@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Product\Domain;
+namespace Roadsurfer\Product\Domain;
 
-use App\Product\Domain\Product;
-use App\Shared\Domain\AbstractProductCollection;
+use Roadsurfer\Product\Domain\Product;
+use Roadsurfer\Shared\Domain\AbstractProductCollection;
 use ArrayIterator;
 use Iterator;
 

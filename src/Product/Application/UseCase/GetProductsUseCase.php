@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Product\Application\UseCase;
+namespace Roadsurfer\Product\Application\UseCase;
 
-use App\Product\Domain\ProductRepository;
-use App\Shared\Domain\SearchCriteria;
-use Doctrine\Common\Collections\Order;
+use Roadsurfer\Product\Domain\ProductRepository;
+use Roadsurfer\Shared\Domain\SearchCriteria;
 
 class GetProductsUseCase
 {

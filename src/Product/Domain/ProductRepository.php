@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Product\Domain;
+namespace Roadsurfer\Product\Domain;
 
-use App\Product\Domain\Product;
-use App\Shared\Domain\SearchCriteria;
+use Roadsurfer\Product\Domain\Product;
+use Roadsurfer\Shared\Domain\SearchCriteria;
 
 interface ProductRepository
 {

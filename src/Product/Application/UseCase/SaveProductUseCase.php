@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Product\Application\UseCase;
+namespace Roadsurfer\Product\Application\UseCase;
 
-use App\Product\Domain\Product;
-use App\Product\Domain\ProductRepository;
-use App\Product\Domain\ProductTypeRepository;
+use Roadsurfer\Product\Domain\Product;
+use Roadsurfer\Product\Domain\ProductRepository;
+use Roadsurfer\Product\Domain\ProductTypeRepository;
 
 class SaveProductUseCase
 {

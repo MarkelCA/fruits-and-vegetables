@@ -1,4 +1,4 @@
-App\Product\Domain\ProductType:
+Roadsurfer\Product\Domain\ProductType:
     type: entity
     table: product_type
     uniqueConstraints:
