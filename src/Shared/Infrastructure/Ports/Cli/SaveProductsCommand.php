@@ -1,8 +1,10 @@
 <?php
 
 // src/Command/CreateUserCommand.php
-namespace App\Product\Infrastructure\Ports\Cli;
+namespace App\Shared\Infrastructure\Ports\Cli;
 
+use App\Product\Domain\Product;
+use App\Product\Domain\ProductCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -27,6 +29,11 @@ class SaveProductsCommand extends Command
 			$filepath = $input->getArgument(self::FILEPATH_ARGUMENT);
 			$content = file_get_contents($filepath);
 			$products = json_decode($content, true);
+
+			$collection = ProductCollection::fromArray($products);
+			foreach ($collection->list() as $product) {
+				echo "Product: " . $product . PHP_EOL;
+			}
 
 
 			return Command::SUCCESS;

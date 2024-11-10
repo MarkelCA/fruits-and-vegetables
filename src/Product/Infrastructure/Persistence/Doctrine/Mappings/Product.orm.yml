@@ -1,0 +1,53 @@
+App\Product\Domain\Product:
+    type: entity
+    table: product
+    indexes:
+        IDX_D34A04ADC54C8C93:
+            columns:
+                - type_id
+        IDX_D34A04ADF8BD700D:
+            columns:
+                - unit_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        quantity:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+    manyToOne:
+        type:
+            targetEntity: ProductType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        unit:
+            targetEntity: Unit
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                unit_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
