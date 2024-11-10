@@ -1,6 +1,6 @@
 <?php
 
-namespace Roadsurfer\Product\Ports\Api\V1\Product;
+namespace Roadsurfer\Product\Ports\Api\V1;
 
 use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
 use Roadsurfer\Shared\Domain\SearchCriteria;

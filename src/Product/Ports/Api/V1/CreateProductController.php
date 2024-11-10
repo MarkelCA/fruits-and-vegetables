@@ -1,6 +1,6 @@
 <?php
 
-namespace Roadsurfer\Product\Ports\Api\V1\Product;
+namespace Roadsurfer\Product\Ports\Api\V1;
 
 use Roadsurfer\Product\Application\UseCase\SaveProductUseCase;
 use Roadsurfer\Product\Domain\Product;
