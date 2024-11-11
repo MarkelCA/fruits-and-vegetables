@@ -45,7 +45,10 @@ docker exec -it fruits-and-vegetables ./bin/phpunit
 
 ### Creating the database
 ```bash
+# Default database
 docker exec -it fruits-and-vegetables ./bin/console doctrine:migrations:migrate
+# Test database
+docker exec -it fruits-and-vegetables ./bin/console doctrine:migrations:migrate --conn=test --env=test
 ```
 
 ### Inserting products from `request.json`

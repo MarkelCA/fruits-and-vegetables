@@ -2,14 +2,11 @@
 
 namespace Tests\Roadsurfer\Product\Ports\Api\V1;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
 use Roadsurfer\Shared\Domain\SearchCriteria;
 use Roadsurfer\Product\Domain\Enum\UnitEnum;
-use Roadsurfer\Product\Domain\Collection\ProductCollection;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class GetProductsControllerTest extends WebTestCase
@@ -37,7 +34,7 @@ class GetProductsControllerTest extends WebTestCase
 			->willReturn([]);
 
 		// Make the request to the API with valid parameters
-		$client->request('GET', '/api/products', [
+		$client->request('GET', '/v1/products/', [
 			'query' => [
 				'type' => 'fruit',
 				'orderBy' => 'id',
@@ -58,7 +55,7 @@ class GetProductsControllerTest extends WebTestCase
 		$client = static::createClient();
 
 		// Make the request with an invalid 'type' parameter
-		$client->request('GET', '/api/products', [
+		$client->request('GET', '/v1/products/', [
 			'query' => ['type' => 123] // Invalid type (not a string)
 		]);
 
@@ -79,7 +76,7 @@ class GetProductsControllerTest extends WebTestCase
 			->willThrowException(new \Roadsurfer\Shared\Domain\DomainException("Error"));
 
 		// Make the request
-		$client->request('GET', '/api/products');
+		$client->request('GET', '/v1/products/');
 
 		// Assert the response status code for error
 		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
@@ -92,9 +89,11 @@ class GetProductsControllerTest extends WebTestCase
 		$client = static::createClient();
 
 		// Make the request with an invalid 'unit' parameter
-		$client->request('GET', '/api/products', [
+		$client->request('GET', '/v1/products/', [
 			'query' => ['unit' => 'invalid_unit'] // Invalid unit
 		]);
+
+		$client->getResponse()->getStatusCode();
 
 		// Assert the response status code and error message
 		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);

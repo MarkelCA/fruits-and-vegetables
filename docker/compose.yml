@@ -10,6 +10,9 @@ services:
       - "8080:8080"
     volumes:
       - ..:/app
+    depends_on:
+      - db
+      - db_test
   db:
     image: mysql:latest
     container_name: roadsurfer_db
@@ -21,7 +24,22 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - roadsurfer_db_data:/var/lib/mysql
+
+  db_test:
+    image: mysql:latest
+    container_name: roadsurfer_db_test
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: roadsurfer_test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3308:3306"
+    volumes:
+      - roadsurfer_db_test_data:/var/lib/mysql
 
 volumes:
   mysql_data:
+  roadsurfer_db_test_data:
+  roadsurfer_db_data:
