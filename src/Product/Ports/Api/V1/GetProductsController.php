@@ -5,9 +5,10 @@ namespace Roadsurfer\Product\Ports\Api\V1;
 use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
 use Roadsurfer\Shared\Domain\SearchCriteria;
 use Doctrine\Common\Collections\Order;
-use InvalidArgumentException;
 use Roadsurfer\Product\Domain\Enum\UnitEnum;
+use Roadsurfer\Shared\Domain\DomainException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,11 +37,14 @@ class GetProductsController extends AbstractController
 
 			$unitEnum = UnitEnum::fromString($unit);
 			return $this->json($this->useCase->handle($searchCriteria, $unitEnum));
-		} catch (InvalidArgumentException $e) {
+		} catch (DomainException | BadRequestException $e) {
 			return new Response("Error: " . $e->getMessage(), Response::HTTP_BAD_REQUEST);
 		}
 	}
 
+	/**
+	 * @throws BadRequestException
+	 */
 	public function validateRequest(Request $request): void
 	{
 		$type = $request->query->get('type');
@@ -49,19 +53,19 @@ class GetProductsController extends AbstractController
 		$unit = $request->query->get('unit');
 
 		if ($type !== null && !is_string($type)) {
-			throw new InvalidArgumentException("Invalid type: " . $type);
+			throw new BadRequestException("Invalid type: " . $type);
 		}
 
 		if ($orderBy !== null && !is_string($orderBy)) {
-			throw new InvalidArgumentException("Invalid orderBy: " . $orderBy);
+			throw new BadRequestException("Invalid orderBy: " . $orderBy);
 		}
 
 		if ($orderType !== null && !is_string($orderType)) {
-			throw new InvalidArgumentException("Invalid orderType: " . $orderType);
+			throw new BadRequestException("Invalid orderType: " . $orderType);
 		}
 
 		if ($unit !== null && !is_string($unit)) {
-			throw new InvalidArgumentException("Invalid unit: " . $unit);
+			throw new BadRequestException("Invalid unit: " . $unit);
 		}
 	}
 }

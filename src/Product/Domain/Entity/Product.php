@@ -2,10 +2,10 @@
 
 namespace Roadsurfer\Product\Domain\Entity;
 
-use InvalidArgumentException;
 use JsonSerializable;
 use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
 use Roadsurfer\Product\Domain\Enum\UnitEnum;
+use Roadsurfer\Product\Domain\Exception\ProductNotValid;
 
 class Product implements JsonSerializable
 {
@@ -44,15 +44,15 @@ class Product implements JsonSerializable
 	public function validateScalars(int|null $id, string $name, int $quantity): void
 	{
 		if ($id !== null && $id < 0) {
-			throw new InvalidArgumentException("Invalid id: " . $id);
+			throw new ProductNotValid("Invalid id: " . $id);
 		}
 
 		if (empty($name)) {
-			throw new InvalidArgumentException("Invalid name: " . $name);
+			throw new ProductNotValid("Invalid name: " . $name);
 		}
 
 		if ($quantity < 0) {
-			throw new InvalidArgumentException("Invalid quantity: " . $quantity);
+			throw new ProductNotValid("Invalid quantity: " . $quantity);
 		}
 	}
 

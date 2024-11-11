@@ -2,7 +2,7 @@
 
 namespace Roadsurfer\Product\Domain\Enum;
 
-use InvalidArgumentException;
+use Roadsurfer\Product\Domain\Exception\ProductTypeNotValid;
 
 enum ProductTypeEnum: string
 {
@@ -14,7 +14,7 @@ enum ProductTypeEnum: string
 		return match ($type) {
 			'fruit' => self::FRUIT,
 			'vegetable' => self::VEGETABLE,
-			default => throw new InvalidArgumentException("Invalid type: " . $type),
+			default => throw new ProductTypeNotValid("Invalid type: " . $type),
 		};
 	}
 }
