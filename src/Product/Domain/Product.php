@@ -29,7 +29,7 @@ class Product implements JsonSerializable
 
 	public function transformQuantity(string $unit, int $quantity): int
 	{
-		$equivalence = UnitEnum::fromString($unit)->getGramsEquivalence();
+		$equivalence = UnitEnum::fromString($unit)->getConversionFactor();
 		return $quantity * $equivalence;
 	}
 

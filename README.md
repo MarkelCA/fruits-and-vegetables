@@ -53,3 +53,12 @@ docker exec -it fruits-and-vegetables ./bin/console doctrine:migrations:migrate
 docker exec -it fruits-and-vegetables ./bin/console product:save ./request.json
 ```
 
+### Getting the list of products
+```bash
+curl http://localhost:8080/v1/products/?type=fruit&order=desc&orderBy=id&unit=kg
+```
+
+### Adding a new product
+```bash
+curl -X POST http://localhost:8080/v1/products/ -d '{"id": 1, "name": "Watermelon", "type": "vegetable", "quantity": 1.5, "unit": "kg"}' -H "Content-Type: application/json"
+```

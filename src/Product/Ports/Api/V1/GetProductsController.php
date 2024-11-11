@@ -6,6 +6,7 @@ use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
 use Roadsurfer\Shared\Domain\SearchCriteria;
 use Doctrine\Common\Collections\Order;
 use InvalidArgumentException;
+use Roadsurfer\Product\Domain\UnitEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,7 @@ class GetProductsController extends AbstractController
 		$type = $request->query->get('type');
 		$orderBy = $request->query->get('orderBy') ?? 'id';
 		$orderType = strtoupper($request->query->get('order') ?? Order::Ascending->value);
+		$unit = $request->query->get('unit') ?? UnitEnum::GRAM->value;
 
 		$searchCriteria = new SearchCriteria(
 			filters: !empty($type) ? ['type.name' => $type] : [],
@@ -31,7 +33,8 @@ class GetProductsController extends AbstractController
 			limit: null
 		);
 
-		return $this->json($this->useCase->handle($searchCriteria));
+		$unitEnum = UnitEnum::fromString($unit);
+		return $this->json($this->useCase->handle($searchCriteria, $unitEnum));
 	}
 
 	public function validateRequest(Request $request): void

@@ -18,7 +18,7 @@ enum UnitEnum: string
 		};
 	}
 
-	public function getGramsEquivalence(): int
+	public function getConversionFactor(): int
 	{
 		return match ($this) {
 			UnitEnum::GRAM => 1,
