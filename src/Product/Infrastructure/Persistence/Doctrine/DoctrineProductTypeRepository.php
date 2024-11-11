@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Roadsurfer\Product\Infrastructure\Persistence\Doctrine;
 
-use Roadsurfer\Product\Domain\ProductType;
-use Roadsurfer\Product\Domain\ProductTypeRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+use Roadsurfer\Product\Domain\Entity\ProductType;
+use Roadsurfer\Product\Domain\Repository\ProductTypeRepository;
 
 final class DoctrineProductTypeRepository extends ServiceEntityRepository implements ProductTypeRepository
 {

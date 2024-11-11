@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Roadsurfer\Product\Domain;
+namespace Roadsurfer\Product\Domain\Repository;
 
-use Roadsurfer\Product\Domain\ProductType;
+use Roadsurfer\Product\Domain\Entity\ProductType;
 
 interface ProductTypeRepository
 {

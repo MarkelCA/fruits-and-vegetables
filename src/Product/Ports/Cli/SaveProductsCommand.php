@@ -3,8 +3,8 @@
 namespace Roadsurfer\Product\Ports\Cli;
 
 use Roadsurfer\Product\Application\UseCase\SaveProductUseCase;
-use Roadsurfer\Product\Domain\FruitsCollection;
-use Roadsurfer\Product\Domain\VegetablesCollection;
+use Roadsurfer\Product\Domain\Collection\FruitsCollection;
+use Roadsurfer\Product\Domain\Collection\VegetablesCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

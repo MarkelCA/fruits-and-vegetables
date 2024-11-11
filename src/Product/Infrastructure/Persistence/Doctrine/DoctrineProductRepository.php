@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Roadsurfer\Product\Infrastructure\Persistence\Doctrine;
 
-use Roadsurfer\Product\Domain\Product;
-use Roadsurfer\Product\Domain\ProductCollection;
-use Roadsurfer\Product\Domain\ProductRepository;
-use Roadsurfer\Shared\Domain\SearchCriteria;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Roadsurfer\Product\Domain\Collection\ProductCollection;
+use Roadsurfer\Product\Domain\Entity\Product;
+use Roadsurfer\Product\Domain\Repository\ProductRepository;
+use Roadsurfer\Shared\Domain\SearchCriteria;
 
 final class DoctrineProductRepository extends ServiceEntityRepository implements ProductRepository
 {

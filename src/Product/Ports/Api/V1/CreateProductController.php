@@ -3,7 +3,7 @@
 namespace Roadsurfer\Product\Ports\Api\V1;
 
 use Roadsurfer\Product\Application\UseCase\SaveProductUseCase;
-use Roadsurfer\Product\Domain\Product;
+use Roadsurfer\Product\Domain\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +17,14 @@ class CreateProductController extends AbstractController
 
 	public function __invoke(Request $request): Response
 	{
-		$payload = json_decode($request->getContent(), true);
+		try {
+			$payload = json_decode($request->getContent(), true);
 
-		$product = Product::fromArray($payload);
-		$this->useCase->execute($product);
-
-		return new Response(status: Response::HTTP_CREATED);
+			$product = Product::fromArray($payload);
+			$this->useCase->execute($product);
+			return new Response(status: Response::HTTP_CREATED);
+		} catch (\Throwable $e) {
+			return new Response("Error: " . $e->getMessage(), Response::HTTP_BAD_REQUEST);
+		}
 	}
 }

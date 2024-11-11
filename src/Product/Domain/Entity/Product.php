@@ -1,9 +1,11 @@
 <?php
 
-namespace Roadsurfer\Product\Domain;
+namespace Roadsurfer\Product\Domain\Entity;
 
 use InvalidArgumentException;
 use JsonSerializable;
+use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
+use Roadsurfer\Product\Domain\Enum\UnitEnum;
 
 class Product implements JsonSerializable
 {

@@ -2,9 +2,9 @@
 
 namespace Roadsurfer\Product\Application\UseCase;
 
-use Roadsurfer\Product\Domain\Product;
-use Roadsurfer\Product\Domain\ProductRepository;
-use Roadsurfer\Product\Domain\ProductTypeRepository;
+use Roadsurfer\Product\Domain\Entity\Product;
+use Roadsurfer\Product\Domain\Repository\ProductRepository;
+use Roadsurfer\Product\Domain\Repository\ProductTypeRepository;
 
 class SaveProductUseCase
 {

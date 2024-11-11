@@ -2,11 +2,11 @@
 
 namespace Roadsurfer\Product\Application\UseCase;
 
-use Roadsurfer\Product\Domain\Product;
-use Roadsurfer\Product\Domain\ProductCollection;
-use Roadsurfer\Product\Domain\ProductDTO;
-use Roadsurfer\Product\Domain\ProductRepository;
-use Roadsurfer\Product\Domain\UnitEnum;
+use Roadsurfer\Product\Domain\Collection\ProductCollection;
+use Roadsurfer\Product\Domain\DTO\ProductDTO;
+use Roadsurfer\Product\Domain\Entity\Product;
+use Roadsurfer\Product\Domain\Enum\UnitEnum;
+use Roadsurfer\Product\Domain\Repository\ProductRepository;
 use Roadsurfer\Shared\Domain\SearchCriteria;
 
 class GetProductsUseCase

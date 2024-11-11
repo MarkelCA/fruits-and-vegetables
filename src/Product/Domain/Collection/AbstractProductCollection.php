@@ -1,9 +1,9 @@
 <?php
 
-namespace Roadsurfer\Shared\Domain;
+namespace Roadsurfer\Shared\Domain\Collection;
 
-use Roadsurfer\Product\Domain\Product;
-use Roadsurfer\Product\Domain\ProductTypeEnum;
+use Roadsurfer\Product\Domain\Entity\Product;
+use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
 use Iterator;
 
 abstract class AbstractProductCollection

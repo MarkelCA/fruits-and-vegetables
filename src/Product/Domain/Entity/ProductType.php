@@ -1,6 +1,6 @@
 <?php
 
-namespace Roadsurfer\Product\Domain;
+namespace Roadsurfer\Product\Domain\Entity;
 
 
 class ProductType

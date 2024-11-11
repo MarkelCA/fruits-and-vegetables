@@ -1,6 +1,8 @@
 <?php
 
-namespace Roadsurfer\Product\Domain;
+namespace Roadsurfer\Product\Domain\Collection;
+
+use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
 
 class VegetablesCollection extends ProductCollection
 {

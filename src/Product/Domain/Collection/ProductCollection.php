@@ -1,11 +1,12 @@
 <?php
 
-namespace Roadsurfer\Product\Domain;
+namespace Roadsurfer\Product\Domain\Collection;
 
-use Roadsurfer\Product\Domain\Product;
-use Roadsurfer\Shared\Domain\AbstractProductCollection;
+use Roadsurfer\Product\Domain\Entity\Product;
+use Roadsurfer\Shared\Domain\Collection\AbstractProductCollection;
 use ArrayIterator;
 use Iterator;
+use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
 
 class ProductCollection extends AbstractProductCollection
 {
