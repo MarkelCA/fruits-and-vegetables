@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Roadsurfer\Shared\Domain;
 
-final class SearchCriteria
+class SearchCriteria
 {
 	public function __construct(
 		private array $filters,
 		private array $order,
-		private ?int $offset,
-		private ?int $limit
+		private ?int $offset = null,
+		private ?int $limit = null
 	) {}
 
 	public function filters(): array

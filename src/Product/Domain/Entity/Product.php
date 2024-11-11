@@ -41,7 +41,7 @@ class Product implements JsonSerializable
 		return new ProductType($typeEnum->value);
 	}
 
-	public function validateScalars(int|null $id, string $name, int $quantity): void
+	public function validateScalars(?int $id, string $name, int $quantity): void
 	{
 		if ($id !== null && $id < 0) {
 			throw new ProductNotValid("Invalid id: " . $id);

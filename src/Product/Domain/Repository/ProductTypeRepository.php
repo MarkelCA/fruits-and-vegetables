@@ -13,5 +13,5 @@ interface ProductTypeRepository
 	public function searchAll(): array;
 
 	public function search(int $id): ProductType;
-	public function searchByName(string $id): ProductType|null;
+	public function searchByName(string $id): ?ProductType;
 }

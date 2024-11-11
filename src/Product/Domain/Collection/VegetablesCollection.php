@@ -6,7 +6,7 @@ use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
 
 class VegetablesCollection extends ProductCollection
 {
-	public static function getCollectionFilter(): ProductTypeEnum|null
+	public static function getCollectionFilter(): ?ProductTypeEnum
 	{
 		return ProductTypeEnum::VEGETABLE;
 	}

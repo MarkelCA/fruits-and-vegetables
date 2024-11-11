@@ -6,12 +6,12 @@ use JsonSerializable;
 
 class ProductDTO implements JsonSerializable
 {
-	private int|null $id;
-	private string|null $name;
-	private float|null $quantity;
-	private string|null $unit;
+	private ?int $id;
+	private ?string $name;
+	private ?float $quantity;
+	private ?string $unit;
 
-	public function __construct(int|null $id = null, string|null $name = null, float|null $quantity = null, string|null $unit = null)
+	public function __construct(?int $id = null, ?string $name = null, ?float $quantity = null, ?string $unit = null)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -19,22 +19,22 @@ class ProductDTO implements JsonSerializable
 		$this->unit = $unit;
 	}
 
-	public function getId(): int|null
+	public function getId(): ?int
 	{
 		return $this->id;
 	}
 
-	public function getName(): string|null
+	public function getName(): ?string
 	{
 		return $this->name;
 	}
 
-	public function getQuantity(): float|null
+	public function getQuantity(): ?float
 	{
 		return $this->quantity;
 	}
 
-	public function getUnit(): string|null
+	public function getUnit(): ?string
 	{
 		return $this->unit;
 	}

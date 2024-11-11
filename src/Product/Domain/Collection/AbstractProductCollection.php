@@ -21,7 +21,7 @@ abstract class AbstractProductCollection
 
 	abstract public function getIterator(): Iterator;
 
-	abstract static public function getCollectionFilter(): ProductTypeEnum|null;
+	abstract static public function getCollectionFilter(): ?ProductTypeEnum;
 
 	static public function fromAssociativeArray(array $data): self
 	{

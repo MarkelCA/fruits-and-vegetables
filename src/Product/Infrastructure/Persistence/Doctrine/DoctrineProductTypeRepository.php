@@ -46,7 +46,7 @@ final class DoctrineProductTypeRepository extends ServiceEntityRepository implem
 		return $productCollection;
 	}
 
-	public function searchByName(string $id): ProductType|null
+	public function searchByName(string $id): ?ProductType
 	{
 		$product = $this->getEntityManager()->getRepository(ProductType::class)->findBy(['name' => $id])[0] ?? null;
 		return $product;

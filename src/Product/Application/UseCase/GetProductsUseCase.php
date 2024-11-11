@@ -13,7 +13,7 @@ class GetProductsUseCase
 {
 	public function __construct(private ProductRepository $productRepository) {}
 
-	public function handle(SearchCriteria|null $searchCriteria, UnitEnum $unit): array
+	public function handle(?SearchCriteria $searchCriteria, UnitEnum $unit): array
 	{
 		if ($searchCriteria !== null) {
 			$products =  $this->productRepository->searchByCriteria($searchCriteria);

@@ -41,7 +41,7 @@ class ProductCollection extends AbstractProductCollection
 		return $this->items;
 	}
 
-	public static function getCollectionFilter(): ProductTypeEnum|null
+	public static function getCollectionFilter(): ?ProductTypeEnum
 	{
 		return null;
 	}
