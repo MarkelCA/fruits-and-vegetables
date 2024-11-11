@@ -3,7 +3,7 @@
 namespace Roadsurfer\Product\Domain\Collection;
 
 use Roadsurfer\Product\Domain\Entity\Product;
-use Roadsurfer\Shared\Domain\Collection\AbstractProductCollection;
+use Roadsurfer\Product\Domain\Collection\AbstractProductCollection;
 use ArrayIterator;
 use Iterator;
 use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;

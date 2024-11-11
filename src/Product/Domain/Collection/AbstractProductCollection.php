@@ -1,6 +1,6 @@
 <?php
 
-namespace Roadsurfer\Shared\Domain\Collection;
+namespace Roadsurfer\Product\Domain\Collection;
 
 use Roadsurfer\Product\Domain\Entity\Product;
 use Roadsurfer\Product\Domain\Enum\ProductTypeEnum;
@@ -34,11 +34,11 @@ abstract class AbstractProductCollection
 		return $collection;
 	}
 
-	static public function fromProductList(iterable $data, ProductTypeEnum|null $type = null): self
+	static public function fromProductList(iterable $data): self
 	{
 		$collection = new static();
 		foreach ($data as $item) {
-			if ($type === null || $item->getTypeName() === static::getCollectionFilter()->value) {
+			if (static::getCollectionFilter() === null || $item->getTypeName() === static::getCollectionFilter()?->value) {
 				$collection->add($item);
 			}
 		}
