@@ -38,17 +38,27 @@ docker compose -f docker/compose.yml up
 # Open http://127.0.0.1:8080 in your browser
 ```
 
-### 🛂 Running tests
+### Creating the database
+The containers already create the databases for you, but if you want to do it manually, you can run the following commands:
 ```bash
-docker exec -it fruits-and-vegetables ./bin/phpunit
+# Default database
+docker exec -it fruits-and-vegetables ./bin/console doctrine:database:create 
+# Test database
+docker exec -it fruits-and-vegetables ./bin/console doctrine:database:create --connection=test
 ```
 
-### Creating the database
+### Migrating the database
+Add the schema and basic data to the database:
 ```bash
 # Default database
 docker exec -it fruits-and-vegetables ./bin/console doctrine:migrations:migrate
 # Test database
 docker exec -it fruits-and-vegetables ./bin/console doctrine:migrations:migrate --conn=test --env=test
+```
+
+### 🛂 Running tests
+```bash
+docker exec -it fruits-and-vegetables ./bin/phpunit
 ```
 
 ### Inserting products from `request.json`

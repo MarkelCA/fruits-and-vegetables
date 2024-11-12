@@ -11,11 +11,11 @@ doctrine:
                 password: '%env(DATABASE_PASSWORD)%'
                 use_savepoints: true
             test:
-                host: '%env(DATABASE_HOST)%'
-                port: '%env(DATABASE_PORT)%'
-                dbname: '%env(DATABASE_NAME)%'
-                user: '%env(DATABASE_USER)%'
-                password: '%env(DATABASE_PASSWORD)%'
+                host: '%env(TEST_DATABASE_HOST)%'
+                port: '%env(TEST_DATABASE_PORT)%'
+                dbname: '%env(TEST_DATABASE_NAME)%'
+                user: '%env(TEST_DATABASE_USER)%'
+                password: '%env(TEST_DATABASE_PASSWORD)%'
 
 
         # IMPORTANT: You MUST configure your server version,
