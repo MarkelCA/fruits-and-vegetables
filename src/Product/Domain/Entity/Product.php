@@ -9,15 +9,15 @@ use Roadsurfer\Product\Domain\Exception\ProductNotValid;
 
 class Product implements JsonSerializable
 {
-	private int $id;
+	private ?int $id;
 	private string $name;
 	/**
 	 * Product quantity (in grams)
 	 */
-	private int $quantity;
+	private float $quantity;
 	private ProductType $type;
 
-	public function __construct(int $id, string $name, int $quantity, string $unit, string $type)
+	public function __construct($id, $name, $quantity, $unit, $type)
 	{
 		$this->validateScalars(id: $id, name: $name, quantity: $quantity);
 		$typeEntity = $this->transformType($type);
@@ -29,7 +29,7 @@ class Product implements JsonSerializable
 		$this->type = $typeEntity;
 	}
 
-	public function transformQuantity(string $unit, int $quantity): int
+	public function transformQuantity(string $unit, float $quantity): float
 	{
 		$equivalence = UnitEnum::fromString($unit)->getConversionFactor();
 		return $quantity * $equivalence;
@@ -41,7 +41,7 @@ class Product implements JsonSerializable
 		return new ProductType($typeEnum->value);
 	}
 
-	public function validateScalars(?int $id, string $name, int $quantity): void
+	public function validateScalars(?int $id, string $name, float $quantity): void
 	{
 		if ($id !== null && $id < 0) {
 			throw new ProductNotValid("Invalid id: " . $id);
@@ -61,7 +61,8 @@ class Product implements JsonSerializable
 		return new Product(id: $data['id'], name: $data['name'], quantity: $data['quantity'], unit: $data['unit'], type: $data['type']);
 	}
 
-	public function getId()
+
+	public function getId(): ?int
 	{
 		return $this->id;
 	}
@@ -81,27 +82,27 @@ class Product implements JsonSerializable
 		$this->name = $name;
 	}
 
-	public function getQuantity()
+	public function getQuantity(): float
 	{
 		return $this->quantity;
 	}
 
-	public function setQuantity($quantity)
+	public function setQuantity(float $quantity)
 	{
 		$this->quantity = $quantity;
 	}
 
-	public function getType()
+	public function getType(): ProductType
 	{
 		return $this->type;
 	}
 
-	public function getTypeName()
+	public function getTypeName(): string
 	{
 		return $this->type->getName();
 	}
 
-	public function setType($type)
+	public function setType(ProductType $type)
 	{
 		$this->type = $type;
 	}
@@ -113,6 +114,16 @@ class Product implements JsonSerializable
 			'name' => $this->name,
 			'quantity' => $this->quantity,
 			'type' => $this->getTypeName(),
+		];
+	}
+
+	public static function getOrderedFields(): array
+	{
+		return [
+			'id',
+			'name',
+			'quantity',
+			'type'
 		];
 	}
 

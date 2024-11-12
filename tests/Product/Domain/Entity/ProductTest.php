@@ -7,7 +7,6 @@ use Roadsurfer\Product\Domain\Entity\Product;
 use Roadsurfer\Product\Domain\Entity\ProductType;
 use Roadsurfer\Product\Domain\Enum\UnitEnum;
 use Roadsurfer\Product\Domain\Exception\ProductNotValid;
-use Roadsurfer\Product\Domain\Exception\ProductTypeNotValid;
 
 class ProductTest extends TestCase
 {
@@ -28,6 +27,12 @@ class ProductTest extends TestCase
 		$this->expectExceptionMessage("Invalid id: -1");
 
 		new Product(-1, 'Apple', 100, 'g', 'fruit');
+	}
+
+	public function testConstructorNullId()
+	{
+		$product = new Product(null, 'Apple', 100, 'g', 'fruit');
+		$this->assertEquals(null, $product->getId());
 	}
 
 	public function testConstructorInvalidName()
@@ -86,6 +91,24 @@ class ProductTest extends TestCase
 		$product = Product::fromArray($data);
 
 		$this->assertEquals(1, $product->getId());
+		$this->assertEquals('Apple', $product->getName());
+		$this->assertEquals(100, $product->getQuantity());
+		$this->assertEquals('fruit', $product->getTypeName());
+	}
+
+	public function testFromArrayNullId()
+	{
+		$data = [
+			'id' => null,
+			'name' => 'Apple',
+			'quantity' => 100,
+			'unit' => 'g',
+			'type' => 'fruit'
+		];
+
+		$product = Product::fromArray($data);
+
+		$this->assertEquals(null, $product->getId());
 		$this->assertEquals('Apple', $product->getName());
 		$this->assertEquals(100, $product->getQuantity());
 		$this->assertEquals('fruit', $product->getTypeName());

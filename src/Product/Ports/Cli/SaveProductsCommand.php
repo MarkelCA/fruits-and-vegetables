@@ -49,12 +49,12 @@ class SaveProductsCommand extends Command
 				$vegetablesStored++;
 			}
 
-			echo "Fruits stored: $fruitsStored\n";
-			echo "Vegetables stored: $vegetablesStored\n";
+			$output->writeln("Fruits stored: $fruitsStored\n");
+			$output->writeln("Vegetables stored: $vegetablesStored\n");
 
 			return Command::SUCCESS;
 		} catch (Throwable $e) {
-			echo "Error: " . $e->getMessage();
+			$output->writeln("Error: " . $e->getMessage());
 			return Command::FAILURE;
 		}
 	}

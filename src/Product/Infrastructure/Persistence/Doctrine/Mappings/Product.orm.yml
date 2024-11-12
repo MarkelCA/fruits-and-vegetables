@@ -22,7 +22,7 @@ Roadsurfer\Product\Domain\Entity\Product:
             options:
                 fixed: false
         quantity:
-            type: integer
+            type: float
             nullable: false
             options:
                 unsigned: false

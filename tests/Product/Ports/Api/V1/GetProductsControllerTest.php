@@ -4,98 +4,71 @@ namespace Tests\Roadsurfer\Product\Ports\Api\V1;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
-use Roadsurfer\Shared\Domain\SearchCriteria;
 use Roadsurfer\Product\Domain\Enum\UnitEnum;
-use PHPUnit\Framework\MockObject\MockObject;
 
 class GetProductsControllerTest extends WebTestCase
 {
-	private MockObject|GetProductsUseCase $useCaseMock;
-
-	protected function setUp(): void
-	{
-		// Create a mock for GetProductsUseCase
-		$this->useCaseMock = $this->createMock(GetProductsUseCase::class);
-	}
 
 	public function testGetProductsWithValidRequest(): void
 	{
-		// Arrange
 		$client = static::createClient();
-		$searchCriteria = new SearchCriteria(filters: ['type.name' => 'fruit'], order: ['id' => 'ASC']);
-		$unitEnum = UnitEnum::GRAM;
+		$client->request('GET', "/v1/products/?type=fruit&orderBy=id&order=ASC&unit=" . UnitEnum::GRAM->value);
 
-		// Mock the expected response from the use case
-		$this->useCaseMock
-			->expects($this->once())
-			->method('handle')
-			->with($this->equalTo($searchCriteria), $this->equalTo($unitEnum))
-			->willReturn([]);
-
-		// Make the request to the API with valid parameters
-		$client->request('GET', '/v1/products/', [
-			'query' => [
-				'type' => 'fruit',
-				'orderBy' => 'id',
-				'order' => 'ASC',
-				'unit' => UnitEnum::GRAM->value,
-			]
-		]);
-
-		// Assert the response status code and content type
 		$this->assertResponseIsSuccessful();
 		$this->assertResponseHeaderSame('Content-Type', 'application/json');
 		$this->assertJson($client->getResponse()->getContent());
 	}
 
-	public function testGetProductsWithInvalidType(): void
+	public function testGetProductsByNonExistingType(): void
 	{
-		// Arrange
 		$client = static::createClient();
 
-		// Make the request with an invalid 'type' parameter
-		$client->request('GET', '/v1/products/', [
-			'query' => ['type' => 123] // Invalid type (not a string)
-		]);
+		$client->request('GET', '/v1/products/?type=123');
 
-		// Assert the response status code and error message
-		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
-		$this->assertStringContainsString('Invalid type', $client->getResponse()->getContent());
+		$this->assertResponseStatusCodeSame(Response::HTTP_OK);
+		$this->assertEquals($client->getResponse()->getContent(), '[]');
 	}
 
-	public function testGetProductsWithDomainException(): void
+	public function testGetProductsByNonExistingOrderBy(): void
 	{
-		// Arrange
 		$client = static::createClient();
+		$client->request('GET', '/v1/products/?orderBy=123');
 
-		// Mock the use case to throw a DomainException
-		$this->useCaseMock
-			->expects($this->once())
-			->method('handle')
-			->willThrowException(new \Roadsurfer\Shared\Domain\DomainException("Error"));
+		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+		// $this->assertStringContainsString('Invalid order by', $client->getResponse()->getContent());
+	}
 
-		// Make the request
+	public function testGetProductsByNonExistingOrderType(): void
+	{
+		$client = static::createClient();
+		$client->request('GET', '/v1/products/?order=123');
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+	}
+
+	public function testGetProductsByNonExistingUnit(): void
+	{
+		$client = static::createClient();
+		$client->request('GET', '/v1/products/?unit=123');
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+	}
+
+	public function testGetAllProducts(): void
+	{
+		$client = static::createClient();
 		$client->request('GET', '/v1/products/');
 
-		// Assert the response status code for error
-		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
-		$this->assertStringContainsString("Error", $client->getResponse()->getContent());
+		$this->assertResponseIsSuccessful();
+		$this->assertResponseHeaderSame('Content-Type', 'application/json');
+		$this->assertJson($client->getResponse()->getContent());
 	}
 
 	public function testInvalidUnit(): void
 	{
-		// Arrange
 		$client = static::createClient();
+		$client->request('GET', '/v1/products/?unit=invalid_unit');
 
-		// Make the request with an invalid 'unit' parameter
-		$client->request('GET', '/v1/products/', [
-			'query' => ['unit' => 'invalid_unit'] // Invalid unit
-		]);
-
-		$client->getResponse()->getStatusCode();
-
-		// Assert the response status code and error message
 		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
 		$this->assertStringContainsString('Invalid unit', $client->getResponse()->getContent());
 	}

@@ -2,18 +2,27 @@
 
 namespace Roadsurfer\Product\Domain\Entity;
 
+use Roadsurfer\Product\Domain\Exception\ProductTypeNotValid;
 
 class ProductType
 {
-	private $id;
-	private $name;
+	private ?int $id;
+	private string $name;
 
-	public function __construct(string $name)
+	public function __construct($name)
 	{
+		$this->validate($name);
 		$this->name = $name;
 	}
 
-	public function getId()
+	public function validate($name): void
+	{
+		if (empty($name) || !is_string($name)) {
+			throw new ProductTypeNotValid("Invalid name: " . $name);
+		}
+	}
+
+	public function getId(): ?int
 	{
 		return $this->id;
 	}
