@@ -1,8 +1,9 @@
 <?php
 
-namespace Roadsurfer\Product\Domain\Enum;
+namespace Roadsurfer\Tests\Product\Domain\Enum;
 
 use PHPUnit\Framework\TestCase;
+use Roadsurfer\Product\Domain\Enum\UnitEnum;
 use Roadsurfer\Product\Domain\Exception\UnitNotValid;
 
 class UnitEnumTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace Roadsurfer\Product\Application\UseCase;
+namespace Roadsurfer\Tests\Product\Application\UseCase;
 
 use PHPUnit\Framework\TestCase;
 use Roadsurfer\Product\Application\UseCase\GetProductsUseCase;
@@ -92,5 +92,31 @@ class GetProductsUseCaseTest extends TestCase
 		$this->assertInstanceOf(ProductDTO::class, $dtos[0]);
 		$this->assertEquals(0.1, $dtos[0]->getQuantity()); // 100g = 0.1kg
 		$this->assertEquals(0.2, $dtos[1]->getQuantity()); // 200g = 0.2kg
+	}
+
+	public function testParseDTOsWithDifferentUnit(): void
+	{
+		$product1 = $this->createProduct(1, 'Apple', 100, UnitEnum::GRAM->value);
+		$product2 = $this->createProduct(2, 'Banana', 200, UnitEnum::GRAM->value);
+		$collection = new ProductCollection();
+		$collection->add($product1);
+		$collection->add($product2);
+
+		$unit = UnitEnum::GRAM;
+		$dtos = $this->useCase->parseDTOs($collection, $unit);
+
+		$this->assertCount(2, $dtos);
+		$this->assertInstanceOf(ProductDTO::class, $dtos[0]);
+		$this->assertEquals(100, $dtos[0]->getQuantity());
+		$this->assertEquals(200, $dtos[1]->getQuantity());
+	}
+
+	public function testParseDTOsWithEmptyCollection(): void
+	{
+		$collection = new ProductCollection();
+		$unit = UnitEnum::GRAM;
+		$dtos = $this->useCase->parseDTOs($collection, $unit);
+
+		$this->assertCount(0, $dtos);
 	}
 }

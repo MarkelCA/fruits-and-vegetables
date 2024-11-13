@@ -23,4 +23,12 @@ class ProductTypeTest extends TestCase
 
 		new ProductType('');
 	}
+
+	public function testConstructorNullName()
+	{
+		$this->expectException(ProductTypeNotValid::class);
+		$this->expectExceptionMessage("Invalid name: ");
+
+		new ProductType(null);
+	}
 }

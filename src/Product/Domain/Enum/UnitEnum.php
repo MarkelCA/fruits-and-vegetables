@@ -23,6 +23,7 @@ enum UnitEnum: string
 		return match ($this) {
 			UnitEnum::GRAM => 1,
 			UnitEnum::KILOGRAM => 1000,
+			default => throw new UnitNotValid("Invalid unit: " . $this->value),
 		};
 	}
 }

@@ -27,4 +27,12 @@ class ProductTypeEnumTest extends TestCase
 
 		ProductTypeEnum::fromString('meat');
 	}
+
+	public function testFromStringWithEmptyType()
+	{
+		$this->expectException(ProductTypeNotValid::class);
+		$this->expectExceptionMessage('Invalid type: ');
+
+		ProductTypeEnum::fromString('');
+	}
 }

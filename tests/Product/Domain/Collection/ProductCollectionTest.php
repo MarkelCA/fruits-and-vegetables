@@ -161,4 +161,10 @@ class ProductCollectionTest extends TestCase
 		$this->expectOutputString($product1->__toString() . "\n" . $product2->__toString() . "\n");
 		$this->collection->print();
 	}
+
+	public function testPrintEmptyCollection(): void
+	{
+		$this->expectOutputString('');
+		$this->collection->print();
+	}
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Roadsurfer\Tests\Product\Application\UseCase;
+
 use PHPUnit\Framework\TestCase;
 use Roadsurfer\Product\Application\UseCase\SaveProductUseCase;
 use Roadsurfer\Product\Domain\Entity\Product;
