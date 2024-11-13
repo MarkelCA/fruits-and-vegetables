@@ -21,6 +21,18 @@ or
 
 * You create a Controller which will be calling the service with a json payload
 
+#### Using curl
+
+* List all products:
+```bash
+curl 'http://localhost:8080/v1/products/?type=fruit&order=desc&orderBy=id&unit=kg'
+```
+
+* Add a product:
+```bash
+curl -X POST 'http://localhost:8080/v1/products/' -d '{"id": 1, "name": "Watermelon", "type": "vegetable", "quantity": 1.5, "unit": "kg"}' -H "Content-Type: application/json"
+```
+
 ## 💡 Hints before you start working on it
 * Keep KISS, DRY, YAGNI, SOLID principles in mind
 * Timebox your work - we expect that you would spend between 3 and 4 hours.
@@ -38,13 +50,9 @@ docker compose -f docker/compose.yml up
 # Open http://127.0.0.1:8080 in your browser
 ```
 
-### Creating the database
-The containers already create the databases for you, but if you want to do it manually, you can run the following commands:
+### Installing dependencies
 ```bash
-# Default database
-docker exec -it fruits-and-vegetables ./bin/console doctrine:database:create 
-# Test database
-docker exec -it fruits-and-vegetables ./bin/console doctrine:database:create --connection=test
+docker exec -it fruits-and-vegetables composer install
 ```
 
 ### Migrating the database
@@ -66,12 +74,3 @@ docker exec -it fruits-and-vegetables ./bin/phpunit
 docker exec -it fruits-and-vegetables ./bin/console product:save ./request.json
 ```
 
-### Getting the list of products
-```bash
-curl http://localhost:8080/v1/products/?type=fruit&order=desc&orderBy=id&unit=kg
-```
-
-### Adding a new product
-```bash
-curl -X POST http://localhost:8080/v1/products/ -d '{"id": 1, "name": "Watermelon", "type": "vegetable", "quantity": 1.5, "unit": "kg"}' -H "Content-Type: application/json"
-```

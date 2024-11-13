@@ -40,6 +40,5 @@ services:
       - roadsurfer_db_test_data:/var/lib/mysql
 
 volumes:
-  mysql_data:
   roadsurfer_db_test_data:
   roadsurfer_db_data:
