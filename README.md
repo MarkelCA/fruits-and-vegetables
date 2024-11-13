@@ -46,7 +46,7 @@ Optional. Just here if you want to run it isolated.
 
 ### ⌨️ Run development server
 ```bash
-docker compose -f docker/compose.yml up
+docker compose -f docker/compose.yml up -d
 # Open http://127.0.0.1:8080 in your browser
 ```
 
